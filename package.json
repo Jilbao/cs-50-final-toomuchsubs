@@ -1,0 +1,14 @@
+{
+  "name": "cs-50-final-toomuchsubs",
+  "version": "1.0.0",
+  "description": "CS50x final project toomuchsubs.com",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cagin Yarkin Sari",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}

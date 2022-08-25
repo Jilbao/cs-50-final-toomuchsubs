@@ -1,0 +1,26 @@
+:root{
+    /* COLOR PALETTE */
+    --maincolor : #1C3C54;
+    --secondary: #1D6665;
+    --whitespace: #E6FFFE;
+    --hintcolor: #6E8BA3;
+}
+
+*, ::after, ::before{
+    padding: 0;
+    margin: 0;
+    
+}
+
+body {
+    background-color: var(--secondary);
+}
+
+.navbar {
+    background-color: var(--maincolor);
+    border-color: var(--maincolor);
+    
+}
+.btn {
+    background-color: var(--maincolor);
+}

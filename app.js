@@ -1,11 +1,29 @@
+//Requiries
 const express = require("express");
 const app = express();
 const port = 3000;
+//EJS
+const ejs = require("ejs");
 
-app.listen(3000, () => {
+//Static
+app.use(express.static("static"))
+
+//Listen
+app.listen(port, () => {
     console.log("Server is up! Port: 3000");
 });
 
+//Index
 app.get("/", (req, res) => {
-    res(__dirname + "/index.html");
+    res.sendFile(__dirname + "/index.html");
+});
+
+//Login
+app.get("/login", (req, res) => { 
+    res.sendFile(__dirname + "/login.html");
+});
+
+//Register
+app.get("/register", (req, res) => {
+    res.sendFile(__dirname + "/register.html");
 });

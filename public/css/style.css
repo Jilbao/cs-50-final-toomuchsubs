@@ -24,3 +24,6 @@ body {
 .btn {
     background-color: var(--maincolor);
 }
+footer{
+    text-align: center;
+}

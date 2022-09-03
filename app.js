@@ -6,7 +6,9 @@ const port = 3000;
 const ejs = require("ejs");
 
 //Static
-app.use(express.static("static"))
+app.set("view engine", "ejs");
+app.use(express.static("public"));
+app.use(express.urlencoded({extended: true}));
 
 //Listen
 app.listen(port, () => {

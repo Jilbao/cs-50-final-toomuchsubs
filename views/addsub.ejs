@@ -1,4 +1,28 @@
 <%- include('partials/header') %>
 <%- include('partials/navbarlogged') %>
 
+<form action="/addsub" method="post">
+    <div class="mb-3">
+        <label for="subName">Name</label>
+        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="subName" name="subName" placeholder="Name" type="text">
+    </div>
+    <div class="mb-3">
+        <label for="subStartDate">Start Date</label>
+        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="subStartDate" name="subStartDate" placeholder="Start Date" type="date">
+    </div>
+    <div class="mb-3">
+        <label for="subEndDate">End Date</label>
+        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="subEndDate" name="subEndDate" placeholder="End Date" type="date">
+    </div>
+    <div class="mb-3">
+        <label for="subFee">Fee</label>
+        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="subFee" name="subFee" placeholder="Fee" type="number" min="0" step="any">
+    </div>
+    <div class="mb-3">
+        <label for="subPaymentTool">Payment Tool</label>
+        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="subPaymentTool" name="subPaymentTool" placeholder="Payment Tool" type="text">
+    </div>
+    <button class="btn btn-primary" type="submit">Add</button>
+</form>
+
 <%- include('partials/footer') %> 

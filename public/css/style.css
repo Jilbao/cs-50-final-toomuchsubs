@@ -36,3 +36,6 @@ h1 {
     margin: 1rem auto;
     color:var(--whitespace);
 }
+label {
+    color:var(--whitespace);
+}

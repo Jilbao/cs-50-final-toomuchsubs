@@ -39,7 +39,7 @@ const UserSchema = new mongoose.Schema({
             subStartDate: Date,
             subEndDate: Date,
             subFee: Number,
-            subFeeSourceReminder: String
+            subPaymentTool: String
         }
     ]
 })
@@ -107,6 +107,28 @@ app.route("/addsub")
     };
    })
    .post((req, res) => {
+        const newSub = {
+            subName: req.body.subName,
+            subStartDate: req.body.subStartDate,
+            subEndDate: req.body.subEndDate,
+            subFee: req.body.subFee,
+            subPaymentTool: req.body.subPaymentTool
+        }
+        if (req.isAuthenticated()) {
+            User.findById(req.user.id, (err, foundUser) => {
+                if (!err) {
+                    foundUser.subscriptions.push(newSub);
+                    foundUser.save(()=>{
+                        res.redirect("/dashboard");
+                    });                    
+                }else{
+                    res.redirect("/login");
+                }
+            });
+        }else{
+            res.redirect("/");
+        };
+
 
    });
 

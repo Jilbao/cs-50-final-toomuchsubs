@@ -78,7 +78,7 @@ app.get("/dashboard", (req, res) => {
     if (req.isAuthenticated()) {
         User.findById(req.user.id, (err, foundUser) => {
             if (!err) {
-                console.log(foundUser.subscriptions);
+                
                 res.render("dashboard", {username: foundUser.username, subscriptions: foundUser.subscriptions});
             }else{
                 res.redirect("/login");
@@ -96,7 +96,7 @@ app.route("/addsub")
     if (req.isAuthenticated()) {
         User.findById(req.user.id, (err, foundUser) => {
             if (!err) {
-                console.log(foundUser.username);
+                
                 res.render("addsub", {username: foundUser.username});
             }else{
                 res.redirect("/login");
@@ -131,6 +131,22 @@ app.route("/addsub")
 
 
    });
+//Deletesub
+app.post("/deletesub",(req, res)=>{
+    console.log(req.body._id);
+    if (req.isAuthenticated()) {
+        User.findByIdAndUpdate(req.user.id, {"$pull" : {"subscriptions" : {"_id" : req.body._id}}},(err) => {
+            if (!err) {
+                res.redirect("/dashboard");
+            }
+        });
+    }else{
+        res.redirect("/");
+    };
+    
+
+});
+
 
 //Login
 app.route("/login")

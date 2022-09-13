@@ -12,18 +12,23 @@
         <th scope="col">End Date</th>
         <th scope="col">Fee</th>
         <th scope="col">Payment Tool</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
       
     <% subscriptions.forEach((element, index) => { %>
-        <tr>
+        <tr>           
             <th scope="row"><%= index+1 %> </th>
             <td> <%= element.subName %> </td>
             <td> <%= element.subStartDate.toLocaleString([], {weekday: "long", year: "numeric", month: "long", day: "numeric"}) %> </td>
-            <td> <%= element.subEndDatetoLocaleString([], {weekday: "long", year: "numeric", month: "long", day: "numeric"}) %> </td>
+            <td> <%= element.subEndDate.toLocaleString([], {weekday: "long", year: "numeric", month: "long", day: "numeric"}) %> </td>
             <td> <%= element.subFee %> </td>
             <td> <%= element.subPaymentTool %> </td>
+            <form action="/deletesub" method="post">
+                <input name="_id" hidden="true" type="text" value="<%= element._id %>">
+                <td><button type="submit">Remove</button></td>
+            </form>
         </tr>
     <% }); %>  
       

@@ -78,8 +78,8 @@ app.get("/dashboard", (req, res) => {
     if (req.isAuthenticated()) {
         User.findById(req.user.id, (err, foundUser) => {
             if (!err) {
-                console.log(foundUser.username);
-                res.render("dashboard", {username: foundUser.username});
+                console.log(foundUser.subscriptions);
+                res.render("dashboard", {username: foundUser.username, subscriptions: foundUser.subscriptions});
             }else{
                 res.redirect("/login");
             }

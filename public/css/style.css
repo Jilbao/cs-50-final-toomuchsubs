@@ -31,3 +31,8 @@ footer{
 h1 {
     color: var(--whitespace);
 }
+.table {
+    width: 70%;
+    margin: 1rem auto;
+    color:var(--whitespace);
+}

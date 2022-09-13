@@ -33,6 +33,15 @@ mongoose.connect(process.env.DB_URL);
 const UserSchema = new mongoose.Schema({
     username: String,
     password: String,
+    subscriptions: [
+        {
+            subName: String,
+            subStartDate: Date,
+            subEndDate: Date,
+            subFee: Number,
+            subFeeSourceReminder: String
+        }
+    ]
 })
 UserSchema.plugin(passportLocalMongoose);
 const User = mongoose.model("user", UserSchema);
@@ -52,7 +61,7 @@ passport.deserializeUser(function(id, done) {
 //Index
 app.get("/", (req, res) => {
     if (req.isAuthenticated()) {
-        res.render("dashboard");
+        res.redirect("/dashboard");
     }else{
         res.render("home");
     };
@@ -66,15 +75,20 @@ app.get("/error", (req, res) => {
 
 //Dashboard
 app.get("/dashboard", (req, res) => {
+    if (req.isAuthenticated()) {
+        User.findById(req.user.id, (err, foundUser) => {
+            if (!err) {
+                console.log(foundUser.username);
+                res.render("dashboard", {username: foundUser.username});
+            }else{
+                res.redirect("/login");
+            }
+        });
+    }else{
+        res.redirect("/");
+    };
     
-    User.findById(req.user._id, (err, foundUser) => {
-        if (!err) {
-            console.log(foundUser.username);
-            res.render("dashboard", {username: foundUser.username});
-        }else{
-            res.redirect("/login");
-        }
-    });
+    
 });
 
 //Login

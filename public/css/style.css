@@ -14,11 +14,18 @@
 
 body {
     background-color: var(--secondary);
+    font-family: 'Montserrat', sans-serif;
 }
 
 .navbar {
     background-color: var(--maincolor);
     border-color: var(--maincolor);
+    padding-left: 2rem;
+    padding-right: 2rem;
+    
+}
+.logo {
+    font-size: 1.65rem;
     
 }
 .btn {
@@ -28,7 +35,7 @@ footer{
     text-align: center;
     color: var(--whitespace);
 }
-h1 {
+h1,h2,h3,h4,h5,h6 {
     color: var(--whitespace);
 }
 .table {
@@ -38,4 +45,7 @@ h1 {
 }
 label {
     color:var(--whitespace);
+}
+.feeinput {
+    width: 160px;   
 }

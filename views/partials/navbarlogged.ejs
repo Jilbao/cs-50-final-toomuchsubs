@@ -1,9 +1,18 @@
 <nav class="navbar navbar-expand-md navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/dashboard"><span class="logo-t">T</span>oo<span class="logo-m">M</span>uch<span class="logo-s">S</span>ubs</a>
+        <a class="navbar-brand" href="/dashboard"><span class="logo logo-t">T</span>oo<span class="logo logo-m">M</span>uch<span class="logo logo-s">S</span>ubs</a>
         <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbar" data-bs-toggle="collapse" type="button">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <form action="/currency" method="post">
+            <select onChange="this.form.submit()" class="form-select" name="currency">
+                <option disabled selected>Choose your currency!</option>
+                <option name="USD" value="USD">USD($)</option>
+                <option name="EUR" value="EUR">EUR(€)</option>
+                <option name="TRY" value="TRY">TRY(₺)</option>
+            </select>
+        </form>
+        
         <div class="collapse navbar-collapse" id="navbar">
 
                 <ul class="navbar-nav ms-auto mt-2">

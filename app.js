@@ -58,6 +58,8 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
+var currency = "$";
+
 //Index
 app.get("/", (req, res) => {
     if (req.isAuthenticated()) {
@@ -79,7 +81,7 @@ app.get("/dashboard", (req, res) => {
         User.findById(req.user.id, (err, foundUser) => {
             if (!err) {
                 
-                res.render("dashboard", {username: foundUser.username, subscriptions: foundUser.subscriptions});
+                res.render("dashboard", {username: foundUser.username, subscriptions: foundUser.subscriptions, currency: currency});
             }else{
                 res.redirect("/login");
             }
@@ -146,8 +148,8 @@ app.post("/deletesub",(req, res)=>{
     
 
 });
-//Refreshsub
-app.post("/refreshsub",(req, res)=>{
+//Extendsub
+app.post("/extendsub",(req, res)=>{
     
     if (req.isAuthenticated()) {
         const endDate = req.body.enddate.toLocaleString();
@@ -163,7 +165,45 @@ app.post("/refreshsub",(req, res)=>{
         res.redirect("/");
     };
 });
-    
+//Updatesub
+app.post("/updatesub",(req, res)=>{
+
+    if (req.isAuthenticated()) {
+        const newFee = req.body.subFee;
+        User.updateMany( {"_id": req.user.id ,"subscriptions._id" :req.body._id}, {"$set" : 
+        {"subscriptions.$.subFee" : newFee}},(err) => {
+            if (!err) {
+                res.redirect("/dashboard");
+            };
+        });
+    }else{
+        res.redirect("/");
+    };
+});
+//Currency
+app.post("/currency",(req, res)=>{
+
+    if (req.isAuthenticated()) {
+        
+        switch (req.body.currency) {
+            case "USD":
+                currency = "$"
+                break;
+            case "EUR":
+                currency = "€"
+                break;
+            case "TRY":
+                currency = "₺"
+                break;
+        
+            default:
+                break;
+        }
+        res.redirect("/dashboard");      
+    }else{
+        res.redirect("/");
+    };
+});
 //Login
 app.route("/login")
    .get((req, res)=>{

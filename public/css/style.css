@@ -26,4 +26,8 @@ body {
 }
 footer{
     text-align: center;
+    color: var(--whitespace);
+}
+h1 {
+    color: var(--whitespace);
 }

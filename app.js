@@ -152,7 +152,7 @@ app.post("/refreshsub",(req, res)=>{
     if (req.isAuthenticated()) {
         const endDate = req.body.enddate.toLocaleString();
         var newDate = new Date(endDate);
-        var newEndDate = newDate.setMonth(newDate.getMonth()+1);
+        var newEndDate = newDate.setDate(newDate.getDate()+30);
         User.updateMany( {"_id": req.user.id ,"subscriptions._id" :req.body._id}, {"$set" : 
         {"subscriptions.$.subStartDate" : endDate, "subscriptions.$.subEndDate": newEndDate}},(err) => {
             if (!err) {

@@ -133,7 +133,7 @@ app.route("/addsub")
    });
 //Deletesub
 app.post("/deletesub",(req, res)=>{
-    console.log(req.body._id);
+
     if (req.isAuthenticated()) {
         User.findByIdAndUpdate(req.user.id, {"$pull" : {"subscriptions" : {"_id" : req.body._id}}},(err) => {
             if (!err) {
@@ -146,8 +146,24 @@ app.post("/deletesub",(req, res)=>{
     
 
 });
-
-
+//Refreshsub
+app.post("/refreshsub",(req, res)=>{
+    
+    if (req.isAuthenticated()) {
+        const endDate = req.body.enddate.toLocaleString();
+        var newDate = new Date(endDate);
+        var newDate2 = newDate.setMonth(newDate.getMonth()+1);
+        User.updateMany( {"_id": req.user.id ,"subscriptions._id" :req.body._id}, {"$set" : 
+        {"subscriptions.$.subStartDate" : endDate, "subscriptions.$.subEndDate": newDate2}},(err) => {
+            if (!err) {
+                res.redirect("/dashboard");
+            };
+        });
+    }else{
+        res.redirect("/");
+    };
+});
+    
 //Login
 app.route("/login")
    .get((req, res)=>{

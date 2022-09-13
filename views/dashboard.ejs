@@ -23,11 +23,16 @@
             <td> <%= element.subName %> </td>
             <td> <%= element.subStartDate.toLocaleString([], {weekday: "long", year: "numeric", month: "long", day: "numeric"}) %> </td>
             <td> <%= element.subEndDate.toLocaleString([], {weekday: "long", year: "numeric", month: "long", day: "numeric"}) %> </td>
-            <td> <%= element.subFee %> </td>
+            <td> <%= element.subFee %> $</td>
             <td> <%= element.subPaymentTool %> </td>
             <form action="/deletesub" method="post">
                 <input name="_id" hidden="true" type="text" value="<%= element._id %>">
-                <td><button type="submit">Remove</button></td>
+                <td><button type="submit">Delete</button></td>
+            </form>
+            <form action="/refreshsub" method="post">
+                <input name="_id" hidden="true" type="text" value="<%= element._id %>">
+                <input name="enddate" hidden="true" type="text" value="<%= element.subEndDate %>">
+                <td><button type="submit">Refresh</button></td>
             </form>
         </tr>
     <% }); %>  

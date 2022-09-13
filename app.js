@@ -152,9 +152,9 @@ app.post("/refreshsub",(req, res)=>{
     if (req.isAuthenticated()) {
         const endDate = req.body.enddate.toLocaleString();
         var newDate = new Date(endDate);
-        var newDate2 = newDate.setMonth(newDate.getMonth()+1);
+        var newEndDate = newDate.setMonth(newDate.getMonth()+1);
         User.updateMany( {"_id": req.user.id ,"subscriptions._id" :req.body._id}, {"$set" : 
-        {"subscriptions.$.subStartDate" : endDate, "subscriptions.$.subEndDate": newDate2}},(err) => {
+        {"subscriptions.$.subStartDate" : endDate, "subscriptions.$.subEndDate": newEndDate}},(err) => {
             if (!err) {
                 res.redirect("/dashboard");
             };

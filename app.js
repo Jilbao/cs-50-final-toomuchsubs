@@ -51,7 +51,30 @@ passport.deserializeUser(function(id, done) {
 
 //Index
 app.get("/", (req, res) => {
-    res.render("home");
+    if (req.isAuthenticated()) {
+        res.render("dashboard");
+    }else{
+        res.render("home");
+    };
+    
+});
+
+//Error
+app.get("/error", (req, res) => {
+    res.render("error", {failureMessage: "Incorrect password or username"});
+});
+
+//Dashboard
+app.get("/dashboard", (req, res) => {
+    
+    User.findById(req.user._id, (err, foundUser) => {
+        if (!err) {
+            console.log(foundUser.username);
+            res.render("dashboard", {username: foundUser.username});
+        }else{
+            res.redirect("/login");
+        }
+    });
 });
 
 //Login
@@ -59,9 +82,11 @@ app.route("/login")
    .get((req, res)=>{
         res.render("login");
    })
-   .post((req, res)=>{
-
-   })
+   .post(passport.authenticate("local", { failureRedirect: "/error"}),
+   (req, res)=>{
+        
+        res.redirect("/dashboard");
+   });
 
 
 //Register
@@ -71,28 +96,43 @@ app.route("/register")
         res.render("register");
    })
    .post((req, res)=>{
-        if (User.findByUsername(req.body.username)) {
-            res.render("error", {errorname: "Username already exist!"});
-        } else {
-            if (req.body.password === req.body.confirmation){
-                User.register({username: req.body.username}, req.body.password, (err, user)=>{
-                    if (err) {
-                        console.log(err);
-                        res.redirect("/register");
-                    } else {
-                        passport.authenticate("local")(req, res, ()=>{
-                            res.redirect("/login");
+        User.findOne({username: req.body.username}, (err,foundUser) => {
+            if (err) {
+                confirm.log(err);
+            }else{
+                if (foundUser){
+                    res.render("error", {failureMessage: "Username already exist!"});
+                }else{
+                    if (req.body.password === req.body.confirmation){
+                        User.register({username: req.body.username}, req.body.password, (err, user)=>{
+                            if (err) {
+                                console.log(err);
+                                res.redirect("/register");
+                            } else {
+                                passport.authenticate("local")(req, res, ()=>{
+                                    res.redirect("/login");
+                                });
+                            }
                         });
-                    }
-                });
-            } else {
-                res.render("error", {errorname: "Password doesn't match!"});
-            };         
-        };
-        
-        
+                    } else {
+                        res.render("error", {failureMessage: "Password doesn't match!"});
+                    };     
+                };
+            };
+        });      
    });
 
+//Logout
+app.get("/logout", (req, res)=>{
+    req.logout((err)=>{
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/");
+        }
+    });
+    
+});
 
 
 //Listen

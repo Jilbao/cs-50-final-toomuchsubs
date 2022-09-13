@@ -90,6 +90,25 @@ app.get("/dashboard", (req, res) => {
     
     
 });
+//Addsub
+app.route("/addsub")
+   .get((req, res)  => {
+    if (req.isAuthenticated()) {
+        User.findById(req.user.id, (err, foundUser) => {
+            if (!err) {
+                console.log(foundUser.username);
+                res.render("addsub", {username: foundUser.username});
+            }else{
+                res.redirect("/login");
+            }
+        });
+    }else{
+        res.redirect("/");
+    };
+   })
+   .post((req, res) => {
+
+   });
 
 //Login
 app.route("/login")

@@ -59,3 +59,7 @@ i {
     color:var(--whitespace);
     margin: 1rem;
 }
+.pw-desc{
+    color:var(--whitespace);
+    font-size: 0.8rem;
+}

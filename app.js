@@ -100,7 +100,7 @@ app.route("/addsub")
         User.findById(req.user.id, (err, foundUser) => {
             if (!err) {
                 
-                res.render("addsub", {username: foundUser.username});
+                res.render("addsub", {username: foundUser.username, currency: currency});
             }else{
                 res.redirect("/login");
             }

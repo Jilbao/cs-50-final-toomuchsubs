@@ -25,8 +25,10 @@ body {
     
 }
 .logo {
-    font-size: 1.65rem;
-    
+    font-size: 1.65rem; 
+}
+.form-select{
+    width: 150px;
 }
 .btn {
     background-color: var(--maincolor);
@@ -51,4 +53,9 @@ label {
 }
 .payment-tool-info{
     color:var(--whitespace);
+}
+i {
+    font-size: 2rem;
+    color:var(--whitespace);
+    margin: 1rem;
 }

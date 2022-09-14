@@ -3,62 +3,64 @@
 
 <h1>Welcome, <%= username %> </h1>
 <a class="btn btn-outline-light" href="/addsub" role="button">Add New Subscription</a>
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Start Date</th>
-        <th scope="col">End Date</th>
-        <th scope="col">Fee</th>
-        <th scope="col">Payment Interval</th>
-        <th scope="col">Payment Tool</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      
-    <% subscriptions.forEach((element, index) => { %>
-        <tr>           
-            <th scope="row"><%= index+1 %> </th>
-            <td> <%= element.subName %> </td>
-            <td> <%= element.subStartDate.toLocaleString([], {weekday: "short", year: "numeric", month: "long", day: "numeric"}) %> </td>
-            <td> <%= (!element.subEndDate)? " - " : element.subEndDate.toLocaleString([], {weekday: "short", year: "numeric", month: "long", day: "numeric"}) %> </td>
-            <td> <%= element.subFee + " " + currency %> </td>
-            <td> <%= element.subPaymentInterval %> </td>
-            <td> <%= element.subPaymentTool %> </td>         
-        
-            <form  action="/startsub" method="post" display="none">
-                <input name="_id" hidden="true" type="text" value="<%= element._id %>">
-                <input name="startdate" hidden="true" type="text" value="<%= element.subStartDate %>">
-                <input name="paymentinterval" hidden="true" type="number" value="<%= element.subPaymentInterval %>">
-                <td><button class="btn btn-outline-light" type="submit" <%= (!element.subEndDate)? "":"hidden" %> >Start</button></td>
-            </form>
-             
-            <form action="/deletesub" method="post">
-                <input name="_id" hidden="true" type="text" value="<%= element._id %>">
-                <td><button class="btn btn-outline-light" type="submit">Delete</button></td>
-            </form>
-
-            <form action="/extendsub" method="post">
-                <input name="_id" hidden="true" type="text" value="<%= element._id %>">
-                <input name="enddate" hidden="true" type="text" value="<%= element.subEndDate %>">
-                <input name="paymentinterval" hidden="true" type="number" value="<%= element.subPaymentInterval %>">
-                <td><button class="btn btn-outline-light" type="submit">Extend</button></td>
-            </form>
-
-            <form action="/updatesub" method="post">
-                <td><div class="input-group mb-3 feeinput">
-                    <input name="_id" hidden="true" type="text" value="<%= element._id %>">
-                    <input class="form-control" name="subFee" type="number" min="0" step="any" >
-                    <button class="btn btn-outline-light" type="submit">Update</button>
-                </div></td>             
-            </form>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            <th scope="col">Fee</th>
+            <th scope="col">Payment Interval</th>
+            <th scope="col">Payment Tool</th>
+            <th scope="col"></th>
         </tr>
-    <% }); %>  
-      
-     
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        
+        <% subscriptions.forEach((element, index) => { %>
+            <tr>           
+                <th scope="row"><%= index+1 %> </th>
+                <td> <%= element.subName %> </td>
+                <td> <%= element.subStartDate.toLocaleString([], {weekday: "short", year: "numeric", month: "long", day: "numeric"}) %> </td>
+                <td> <%= (!element.subEndDate)? " - " : element.subEndDate.toLocaleString([], {weekday: "short", year: "numeric", month: "long", day: "numeric"}) %> </td>
+                <td> <%= element.subFee + " " + currency %> </td>
+                <td> <%= element.subPaymentInterval %> </td>
+                <td> <%= element.subPaymentTool %> </td>         
+            
+                <form  action="/startsub" method="post" display="none">
+                    <input name="_id" hidden="true" type="text" value="<%= element._id %>">
+                    <input name="startdate" hidden="true" type="text" value="<%= element.subStartDate %>">
+                    <input name="paymentinterval" hidden="true" type="number" value="<%= element.subPaymentInterval %>">
+                    <td><button class="btn btn-outline-light" type="submit" <%= (!element.subEndDate)? "":"hidden" %> >Start</button></td>
+                </form>
+                
+                <form action="/deletesub" method="post">
+                    <input name="_id" hidden="true" type="text" value="<%= element._id %>">
+                    <td><button class="btn btn-outline-light" type="submit">Delete</button></td>
+                </form>
+
+                <form action="/extendsub" method="post">
+                    <input name="_id" hidden="true" type="text" value="<%= element._id %>">
+                    <input name="enddate" hidden="true" type="text" value="<%= element.subEndDate %>">
+                    <input name="paymentinterval" hidden="true" type="number" value="<%= element.subPaymentInterval %>">
+                    <td><button class="btn btn-outline-light" type="submit">Extend</button></td>
+                </form>
+
+                <form action="/updatesub" method="post">
+                    <td><div class="input-group mb-3 feeinput">
+                        <input name="_id" hidden="true" type="text" value="<%= element._id %>">
+                        <input class="form-control" name="subFee" type="number" min="0" step="any" >
+                        <button class="btn btn-outline-light" type="submit">Update</button>
+                    </div></td>             
+                </form>
+            </tr>
+        <% }); %>  
+        
+        
+        </tbody>
+    </table>
+</div>
 
 <%- include('partials/footer') %> 

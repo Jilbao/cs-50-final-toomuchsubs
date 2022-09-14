@@ -6,10 +6,10 @@
         </button>
         <form action="/currency" method="post">
             <select onChange="this.form.submit()" class="form-select" name="currency">
-                <option disabled selected>Choose your currency!</option>
-                <option name="USD" value="USD">USD($)</option>
-                <option name="EUR" value="EUR">EUR(€)</option>
-                <option name="TRY" value="TRY">TRY(₺)</option>
+                <option disabled  >Choose your currency!</option>
+                <option <%= (currency === "$") ? "selected" : ""%> name="USD" value="USD">USD($)</option>
+                <option <%= (currency === "€") ? "selected" : ""%> name="EUR" value="EUR">EUR(€)</option>
+                <option <%= (currency === "₺") ? "selected" : ""%> name="TRY" value="TRY">TRY(₺)</option>
             </select>
         </form>
         

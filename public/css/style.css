@@ -49,3 +49,6 @@ label {
 .feeinput {
     width: 160px;   
 }
+.payment-tool-info{
+    color:var(--whitespace);
+}

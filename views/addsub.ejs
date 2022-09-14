@@ -11,16 +11,17 @@
         <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="subStartDate" name="subStartDate" placeholder="Start Date" type="date">
     </div>
     <div class="mb-3">
-        <label for="subEndDate">End Date</label>
-        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="subEndDate" name="subEndDate" placeholder="End Date" type="date">
+        <label for="subFee">Fee </label>
+        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="subFee" name="subFee" placeholder="Fee" type="number" min="0" step="any">
     </div>
     <div class="mb-3">
-        <label for="subFee">Fee ($)</label>
-        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="subFee" name="subFee" placeholder="Fee" type="number" min="0" step="any">
+        <label for="subPaymentInterval">Payment Interval (Monthly) </label>
+        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="subPaymentInterval" name="subPaymentInterval" placeholder="Ex. 1, 3, 6, 12" type="number" min="0" step="0">
     </div>
     <div class="mb-3">
         <label for="subPaymentTool">Payment Tool</label>
         <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="subPaymentTool" name="subPaymentTool" placeholder="Payment Tool" type="text">
+        <p class="payment-tool-info">Please do not enter any credential information! This part is just for recognizing your payment tool. Ex. Credit card, Debit, Family package with X person</p>
     </div>
     <button class="btn btn-primary" type="submit">Add</button>
 </form>

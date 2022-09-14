@@ -39,6 +39,7 @@ const UserSchema = new mongoose.Schema({
             subStartDate: Date,
             subEndDate: Date,
             subFee: Number,
+            subPaymentInterval: Number,
             subPaymentTool: String
         }
     ]
@@ -114,6 +115,7 @@ app.route("/addsub")
             subStartDate: req.body.subStartDate,
             subEndDate: req.body.subEndDate,
             subFee: req.body.subFee,
+            subPaymentInterval: req.body.subPaymentInterval,
             subPaymentTool: req.body.subPaymentTool
         }
         if (req.isAuthenticated()) {
@@ -148,13 +150,32 @@ app.post("/deletesub",(req, res)=>{
     
 
 });
+//Startsub
+app.post("/startsub",(req, res)=>{
+    
+    if (req.isAuthenticated()) {
+        const startDate = req.body.startdate.toLocaleString();
+        const subPaymentInterval = req.body.paymentinterval;
+        var newDate = new Date(startDate);
+        var newEndDate = newDate.setDate(newDate.getDate()+(30*subPaymentInterval));
+        User.updateMany( {"_id": req.user.id ,"subscriptions._id" :req.body._id}, {"$set" : 
+        {"subscriptions.$.subEndDate": newEndDate}},(err) => {
+            if (!err) {
+                res.redirect("/dashboard");
+            };
+        });
+    }else{
+        res.redirect("/");
+    };
+});
 //Extendsub
 app.post("/extendsub",(req, res)=>{
     
     if (req.isAuthenticated()) {
         const endDate = req.body.enddate.toLocaleString();
+        const subPaymentInterval = req.body.paymentinterval;
         var newDate = new Date(endDate);
-        var newEndDate = newDate.setDate(newDate.getDate()+30);
+        var newEndDate = newDate.setDate(newDate.getDate()+(30*subPaymentInterval));
         User.updateMany( {"_id": req.user.id ,"subscriptions._id" :req.body._id}, {"$set" : 
         {"subscriptions.$.subStartDate" : endDate, "subscriptions.$.subEndDate": newEndDate}},(err) => {
             if (!err) {

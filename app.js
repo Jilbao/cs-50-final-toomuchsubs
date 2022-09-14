@@ -225,6 +225,43 @@ app.post("/currency",(req, res)=>{
         res.redirect("/");
     };
 });
+//Change Password
+app.route("/changepw")
+   .get((req, res)=>{
+        if (req.isAuthenticated()) {
+            User.findById(req.user.id, (err, foundUser) => {
+                if (!err) {             
+                    res.render("changepw", {username: foundUser.username, currency: currency});
+                }else{
+                    res.redirect("/login");
+                }
+            });
+        }else{
+            res.redirect("/");
+        };
+   })
+   .post(
+   (req, res)=>{
+        User.findOne({_id: req.user.id}, (err,foundUser) => {
+            if (err) {
+                confirm.log(err);
+            }else{
+                if (foundUser){
+                    if (req.body.newpassword === req.body.newconfirmation){
+                        foundUser.setPassword(req.body.newpassword, () => {
+                            foundUser.save();
+                            
+                        });
+                        res.redirect("/logout");
+                    } else {
+                        res.render("error", {failureMessage: "Password doesn't match!"});
+                    };
+                    
+                };
+            };
+        });
+        
+   });
 //Login
 app.route("/login")
    .get((req, res)=>{
@@ -281,6 +318,8 @@ app.get("/logout", (req, res)=>{
     });
     
 });
+
+
 
 
 //Listen

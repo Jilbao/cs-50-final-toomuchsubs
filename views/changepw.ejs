@@ -1,0 +1,14 @@
+<%- include('partials/header') %>
+<%- include('partials/navbarlogged') %>
+
+<form action="/changepw" method="post">
+    <div class="mb-3">
+        <input class="form-control mx-auto w-auto" id="newpassword" name="newpassword" placeholder="New Password" type="password" pattern=".{8,}">
+    </div>
+    <div class="mb-3">
+        <input class="form-control mx-auto w-auto" id="newpassword" name="newconfirmation" placeholder="New Password(again)" type="password" pattern=".{8,}">
+    </div>
+    <button class="btn btn-primary" type="submit">Change</button>
+</form>
+
+<%- include('partials/footer') %> 

@@ -9,7 +9,7 @@ const passportLocalMongoose = require("passport-local-mongoose");
 
 //App Setup
 const app = express();
-const port = 3000;
+let port = process.env.PORT;
 
 //Static
 app.set("view engine", "ejs");
@@ -319,10 +319,11 @@ app.get("/logout", (req, res)=>{
     
 });
 
-
-
-
 //Listen
-app.listen(port, () => {
-    console.log("Server is up! Port: 3000");
-});
+if (port == null || port == "") {
+    port = 3000;
+  }
+  
+  app.listen(port, () => {
+    console.log(`Server is running on Port: ${port}`);
+  });
